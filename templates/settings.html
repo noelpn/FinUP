@@ -1,0 +1,239 @@
+{% extends "layout.html" %}
+
+{% block title %}Settings{% endblock %}
+
+{% block page_title %}
+Settings
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <!-- Profile -->
+
+    <div class="card p-4 mb-4">
+
+        <h4>👤 Profile</h4>
+
+        <form action="/settings/profile" method="POST">
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <label>Name</label>
+
+                    <input type="text"
+                           class="form-control"
+                           name="name"
+                           value="{{ user.name }}">
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <label>Email</label>
+
+                    <input type="email"
+                           class="form-control"
+                           name="email"
+                           value="{{ user.email }}">
+
+                </div>
+
+            </div>
+
+            <br>
+
+            <button class="btn btn-primary">
+
+                Save Profile
+
+            </button>
+
+        </form>
+
+    </div>
+
+    <!-- Preferences -->
+
+    <div class="card p-4 mb-4">
+
+        <h4>⚙ Preferences</h4>
+
+        <form action="/settings/preferences" method="POST">
+
+            <div class="row">
+
+                <div class="col-md-4">
+
+                    <label>Currency</label>
+
+                    <select class="form-select" name="currency">
+
+                        <option>INR (₹)</option>
+                        <option>USD ($)</option>
+                        <option>EUR (€)</option>
+                        <option>GBP (£)</option>
+
+                    </select>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <label>Language</label>
+
+                    <select class="form-select" name="language">
+
+                        <option>English</option>
+                        <option>Malayalam</option>
+                        <option>Hindi</option>
+                        <option>Tamil</option>
+
+                    </select>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <label>Theme</label>
+
+                    <select class="form-select" name="theme">
+
+                        <option>Light</option>
+                        <option>Dark</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <br>
+
+            <button class="btn btn-success">
+
+                Save Preferences
+
+            </button>
+
+        </form>
+
+    </div>
+
+    <!-- AI Settings -->
+
+    <div class="card p-4 mb-4">
+
+        <h4>🤖 AI Settings</h4>
+
+        <form action="/settings/ai" method="POST">
+
+            <div class="mb-3">
+
+                <label>OpenAI API Key</label>
+
+                <input type="password"
+                       class="form-control"
+                       name="api_key">
+
+            </div>
+
+            <div class="mb-3">
+
+                <label>Speech Model</label>
+
+                <select class="form-select" name="speech_model">
+
+                    <option>OpenAI Whisper</option>
+
+                </select>
+
+            </div>
+
+            <div class="mb-3">
+
+                <label>Prediction Model</label>
+
+                <select class="form-select" name="prediction_model">
+
+                    <option>Random Forest</option>
+                    <option>Linear Regression</option>
+
+                </select>
+
+            </div>
+
+            <button class="btn btn-primary">
+
+                Save AI Settings
+
+            </button>
+
+        </form>
+
+    </div>
+
+    <!-- Backup -->
+
+    <div class="card p-4 mb-4">
+
+        <h4>💾 Backup & Restore</h4>
+
+        <div class="row">
+
+            <div class="col-md-6">
+
+                <a href="/backup"
+                   class="btn btn-success w-100">
+
+                    Download Backup
+
+                </a>
+
+            </div>
+
+            <div class="col-md-6">
+
+                <form action="/restore"
+                      method="POST"
+                      enctype="multipart/form-data">
+
+                    <input type="file"
+                           class="form-control mb-2"
+                           name="backup">
+
+                    <button class="btn btn-warning w-100">
+
+                        Restore Backup
+
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Logout -->
+
+    <div class="card p-4">
+
+        <h4>🚪 Account</h4>
+
+        <a href="/logout"
+           class="btn btn-danger">
+
+            Logout
+
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,242 @@
+{% extends "layout.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block page_title %}
+Dashboard
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <!-- Summary Cards -->
+
+    <div class="row g-4">
+
+        <div class="col-lg-3 col-md-6">
+            <div class="card p-3">
+                <h6>Total Expenses</h6>
+                <h2>₹ {{ total_expense }}</h2>
+                <small class="text-success">
+                    This Month
+                </small>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="card p-3">
+                <h6>Budget Remaining</h6>
+                <h2>₹ {{ remaining_budget }}</h2>
+                <small class="text-primary">
+                    Available
+                </small>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="card p-3">
+                <h6>Predicted Expense</h6>
+                <h2>₹ {{ predicted_expense }}</h2>
+                <small class="text-danger">
+                    Next Month
+                </small>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="card p-3">
+                <h6>Highest Category</h6>
+                <h2>{{ highest_category }}</h2>
+                <small>
+                    ₹ {{ highest_amount }}
+                </small>
+            </div>
+        </div>
+
+    </div>
+
+    <br>
+
+    <!-- Quick Actions -->
+
+    <div class="card p-4">
+
+        <h4>Quick Actions</h4>
+
+        <br>
+
+        <div class="row text-center">
+
+            <div class="col-md-3">
+
+                <a href="{{ url_for('voice') }}"
+                   class="btn btn-primary w-100">
+
+                    🎤 Voice Input
+
+                </a>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <a href="{{ url_for('add_expense') }}"
+                   class="btn btn-success w-100">
+
+                    ⌨ Manual Entry
+
+                </a>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <a href="{{ url_for('upload') }}"
+                   class="btn btn-warning w-100">
+
+                    📂 Upload File
+
+                </a>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <a href="{{ url_for('reports') }}"
+                   class="btn btn-info w-100">
+
+                    📄 Reports
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <br>
+
+    <!-- Expense Trend -->
+
+    <div class="card p-4">
+
+        <h4>Expense Trend</h4>
+
+        <canvas id="expenseChart"></canvas>
+
+    </div>
+
+    <br>
+
+    <!-- Category Chart -->
+
+    <div class="row">
+
+        <div class="col-lg-6">
+
+            <div class="card p-4">
+
+                <h4>Category Distribution</h4>
+
+                <canvas id="categoryChart"></canvas>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-6">
+
+            <div class="card p-4">
+
+                <h4>AI Financial Suggestions</h4>
+
+                <ul class="list-group">
+
+                    {% for suggestion in suggestions %}
+
+                    <li class="list-group-item">
+
+                        🤖 {{ suggestion }}
+
+                    </li>
+
+                    {% endfor %}
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <br>
+
+    <!-- Recent Expenses -->
+
+    <div class="card p-4">
+
+        <div class="d-flex justify-content-between">
+
+            <h4>Recent Expenses</h4>
+
+            <a href="{{ url_for('expenses') }}"
+               class="btn btn-primary">
+
+                View All
+
+            </a>
+
+        </div>
+
+        <br>
+
+        <table class="table table-hover">
+
+            <thead>
+
+            <tr>
+
+                <th>Date</th>
+
+                <th>Category</th>
+
+                <th>Merchant</th>
+
+                <th>Amount</th>
+
+            </tr>
+
+            </thead>
+
+            <tbody>
+
+            {% for expense in recent_expenses %}
+
+            <tr>
+
+                <td>{{ expense.date }}</td>
+
+                <td>{{ expense.category }}</td>
+
+                <td>{{ expense.merchant }}</td>
+
+                <td>₹ {{ expense.amount }}</td>
+
+            </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/charts.js') }}"></script>
+
+{% endblock %}

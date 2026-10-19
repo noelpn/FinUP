@@ -1,0 +1,184 @@
+{% extends "layout.html" %}
+
+{% block title %}AI Suggestions{% endblock %}
+
+{% block page_title %}
+AI Financial Suggestions
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <!-- Summary -->
+
+    <div class="row g-4">
+
+        <div class="col-md-3">
+
+            <div class="card p-3">
+
+                <h6>Predicted Expense</h6>
+
+                <h2>₹ {{ predicted_expense }}</h2>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="card p-3">
+
+                <h6>Expected Savings</h6>
+
+                <h2>₹ {{ expected_savings }}</h2>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="card p-3">
+
+                <h6>Highest Spending</h6>
+
+                <h2>{{ highest_category }}</h2>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="card p-3">
+
+                <h6>Budget Status</h6>
+
+                <h2>{{ budget_status }}</h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <br>
+
+    <!-- AI Recommendations -->
+
+    <div class="card p-4 mb-4">
+
+        <h4>🤖 Personalized Recommendations</h4>
+
+        <ul class="list-group">
+
+            {% for tip in recommendations %}
+
+            <li class="list-group-item">
+
+                💡 {{ tip }}
+
+            </li>
+
+            {% endfor %}
+
+        </ul>
+
+    </div>
+
+    <!-- Savings Opportunities -->
+
+    <div class="card p-4 mb-4">
+
+        <h4>💰 Savings Opportunities</h4>
+
+        <table class="table table-hover">
+
+            <thead>
+
+                <tr>
+
+                    <th>Category</th>
+                    <th>Current</th>
+                    <th>Suggested</th>
+                    <th>Potential Savings</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for saving in savings %}
+
+                <tr>
+
+                    <td>{{ saving.category }}</td>
+
+                    <td>₹ {{ saving.current }}</td>
+
+                    <td>₹ {{ saving.suggested }}</td>
+
+                    <td class="text-success">
+
+                        ₹ {{ saving.saved }}
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <!-- Spending Alerts -->
+
+    <div class="card p-4 mb-4">
+
+        <h4>⚠ AI Alerts</h4>
+
+        <ul class="list-group">
+
+            {% for alert in alerts %}
+
+            <li class="list-group-item">
+
+                🚨 {{ alert }}
+
+            </li>
+
+            {% endfor %}
+
+        </ul>
+
+    </div>
+
+    <!-- Upcoming Prediction -->
+
+    <div class="card p-4">
+
+        <h4>📈 Future Spending Prediction</h4>
+
+        <canvas id="predictionChart"></canvas>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script src="{{ url_for('static',
+filename='js/charts.js') }}"></script>
+
+<script src="{{ url_for('static',
+filename='js/suggestions.js') }}"></script>
+
+{% endblock %}

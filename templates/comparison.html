@@ -1,0 +1,190 @@
+{% extends "layout.html" %}
+
+{% block title %}Expense Comparison{% endblock %}
+
+{% block page_title %}
+Expense Comparison
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <!-- Summary Cards -->
+
+    <div class="row g-4">
+
+        <div class="col-md-3">
+
+            <div class="card p-3">
+
+                <h6>Current Month</h6>
+
+                <h2>₹ {{ current_month }}</h2>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="card p-3">
+
+                <h6>Previous Month</h6>
+
+                <h2>₹ {{ previous_month }}</h2>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="card p-3">
+
+                <h6>Difference</h6>
+
+                <h2>₹ {{ difference }}</h2>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="card p-3">
+
+                <h6>Change</h6>
+
+                <h2>{{ percentage }}%</h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <br>
+
+    <!-- Comparison Chart -->
+
+    <div class="card p-4 mb-4">
+
+        <h4>📊 Monthly Expense Comparison</h4>
+
+        <canvas id="comparisonChart"></canvas>
+
+    </div>
+
+    <!-- Category Comparison -->
+
+    <div class="row">
+
+        <div class="col-lg-6">
+
+            <div class="card p-4">
+
+                <h4>🥧 Category Comparison</h4>
+
+                <canvas id="categoryComparisonChart"></canvas>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-6">
+
+            <div class="card p-4">
+
+                <h4>📈 Expense Growth</h4>
+
+                <canvas id="growthChart"></canvas>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <br>
+
+    <!-- Comparison Table -->
+
+    <div class="card p-4">
+
+        <h4>Expense Summary</h4>
+
+        <table class="table table-hover">
+
+            <thead>
+
+                <tr>
+
+                    <th>Category</th>
+                    <th>Previous Month</th>
+                    <th>Current Month</th>
+                    <th>Difference</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for row in comparison_data %}
+
+                <tr>
+
+                    <td>{{ row.category }}</td>
+
+                    <td>₹ {{ row.previous }}</td>
+
+                    <td>₹ {{ row.current }}</td>
+
+                    <td>{{ row.change }}</td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <br>
+
+    <!-- AI Analysis -->
+
+    <div class="card p-4">
+
+        <h4>🤖 AI Comparison Insights</h4>
+
+        <ul class="list-group">
+
+            {% for insight in comparison_insights %}
+
+            <li class="list-group-item">
+
+                {{ insight }}
+
+            </li>
+
+            {% endfor %}
+
+        </ul>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script src="{{ url_for('static', filename='js/charts.js') }}"></script>
+
+<script src="{{ url_for('static', filename='js/comparison.js') }}"></script>
+
+{% endblock %}

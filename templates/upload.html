@@ -1,0 +1,228 @@
+{% extends "layout.html" %}
+
+{% block title %}Upload Files{% endblock %}
+
+{% block page_title %}
+Upload Expense Files
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-8">
+
+            <div class="card p-4">
+
+                <h3>📂 Import Expenses</h3>
+
+                <p class="text-muted">
+                    Upload an Excel, CSV, or PDF file to automatically extract expenses.
+                </p>
+
+                <hr>
+
+                <form id="uploadForm"
+                      enctype="multipart/form-data"
+                      method="POST"
+                      action="/upload">
+
+                    <div class="mb-4">
+
+                        <label class="form-label">
+
+                            Select File
+
+                        </label>
+
+                        <input
+                            type="file"
+                            class="form-control"
+                            id="expenseFile"
+                            name="expenseFile"
+                            accept=".xlsx,.xls,.csv,.pdf"
+                            required>
+
+                    </div>
+
+                    <div class="text-center">
+
+                        <button
+                            class="btn btn-primary btn-lg">
+
+                            ⬆ Upload File
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+                <br>
+
+                <div class="progress d-none"
+                     id="progressBar">
+
+                    <div class="progress-bar
+                                progress-bar-striped
+                                progress-bar-animated"
+                         style="width:100%">
+
+                        Uploading...
+
+                    </div>
+
+                </div>
+
+                <br>
+
+                <div id="uploadStatus"
+                     class="alert alert-info d-none">
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <br>
+
+    <div class="row">
+
+        <div class="col-lg-4">
+
+            <div class="card p-3">
+
+                <h5>📊 Excel</h5>
+
+                <p>
+
+                    Import bank statements or expense sheets
+                    directly from Excel.
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-4">
+
+            <div class="card p-3">
+
+                <h5>📄 PDF</h5>
+
+                <p>
+
+                    Extract transactions from PDF bank statements
+                    using AI.
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-4">
+
+            <div class="card p-3">
+
+                <h5>📑 CSV</h5>
+
+                <p>
+
+                    Import exported transaction history
+                    from banks or finance apps.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <br>
+
+    <div class="card p-4">
+
+        <h4>Supported Formats</h4>
+
+        <table class="table table-bordered">
+
+            <thead>
+
+                <tr>
+
+                    <th>Format</th>
+
+                    <th>Supported</th>
+
+                    <th>AI Processing</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr>
+
+                    <td>.xlsx</td>
+
+                    <td>✅</td>
+
+                    <td>Automatic Import</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>.xls</td>
+
+                    <td>✅</td>
+
+                    <td>Automatic Import</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>.csv</td>
+
+                    <td>✅</td>
+
+                    <td>Automatic Import</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>.pdf</td>
+
+                    <td>✅</td>
+
+                    <td>AI Transaction Extraction</td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script src="{{ url_for('static',
+filename='js/uploader.js') }}"></script>
+
+{% endblock %}

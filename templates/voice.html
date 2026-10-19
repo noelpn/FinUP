@@ -1,0 +1,117 @@
+{% extends "layout.html" %}
+
+{% block title %}Voice Input{% endblock %}
+
+{% block page_title %}
+Voice Expense Recorder
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-8">
+
+            <div class="card p-4">
+
+                <h3 class="mb-3">
+                    🎤 Voice Expense Recorder
+                </h3>
+
+                <p class="text-muted">
+
+                    Record your expense and let AI automatically
+                    detect the amount, category, merchant,
+                    and date.
+
+                </p>
+
+                <hr>
+
+                <div class="text-center">
+
+                    <button
+                        id="recordBtn"
+                        class="btn btn-danger btn-lg">
+
+                        🎙 Start Recording
+
+                    </button>
+
+                    <button
+                        id="stopBtn"
+                        class="btn btn-secondary btn-lg ms-2"
+                        disabled>
+
+                        ⏹ Stop
+
+                    </button>
+
+                </div>
+
+                <br>
+
+                <audio
+                    id="audioPlayback"
+                    controls
+                    class="w-100">
+                </audio>
+
+                <br>
+
+                <div class="text-center">
+
+                    <button
+                        id="uploadBtn"
+                        class="btn btn-success"
+                        disabled>
+
+                        ☁ Upload Recording
+
+                    </button>
+
+                </div>
+
+                <br>
+
+                <div class="progress d-none" id="progressContainer">
+
+                    <div
+                        class="progress-bar progress-bar-striped progress-bar-animated"
+                        style="width:100%">
+
+                        Uploading...
+
+                    </div>
+
+                </div>
+
+                <br>
+
+                <div id="transcriptionResult"
+                     class="alert alert-info d-none">
+
+                </div>
+
+                <div id="expenseResult"
+                     class="alert alert-success d-none">
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script src="{{ url_for('static', filename='js/recorder.js') }}"></script>
+
+{% endblock %}

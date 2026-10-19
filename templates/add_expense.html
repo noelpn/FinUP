@@ -1,0 +1,170 @@
+{% extends "layout.html" %}
+
+{% block title %}Add Expense{% endblock %}
+
+{% block page_title %}
+Add Expense
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <div class="row">
+
+        <!-- AI Expense Entry -->
+
+        <div class="col-lg-6">
+
+            <div class="card p-4 mb-4">
+
+                <h4>🤖 AI Expense Entry</h4>
+
+                <p class="text-muted">
+                    Type your expense naturally.
+                </p>
+
+                <form action="/ai_expense" method="POST">
+
+                    <textarea
+                        class="form-control"
+                        name="expense_text"
+                        rows="8"
+                        placeholder="Example:
+Spent ₹350 on groceries at Lulu yesterday.
+Paid ₹1200 for electricity bill.
+Bought a shirt for ₹999 from Trends."></textarea>
+
+                    <br>
+
+                    <button
+                        class="btn btn-primary">
+
+                        Analyze with AI
+
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+        <!-- Manual Entry -->
+
+        <div class="col-lg-6">
+
+            <div class="card p-4">
+
+                <h4>📝 Manual Entry</h4>
+
+                <form action="/add_expense" method="POST">
+
+                    <div class="mb-3">
+
+                        <label>Date</label>
+
+                        <input
+                            type="date"
+                            class="form-control"
+                            name="date"
+                            required>
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label>Merchant</label>
+
+                        <input
+                            type="text"
+                            class="form-control"
+                            name="merchant"
+                            placeholder="Merchant Name">
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label>Category</label>
+
+                        <select
+                            class="form-select"
+                            name="category">
+
+                            <option>Food</option>
+                            <option>Shopping</option>
+                            <option>Travel</option>
+                            <option>Bills</option>
+                            <option>Entertainment</option>
+                            <option>Healthcare</option>
+                            <option>Education</option>
+                            <option>Others</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label>Amount</label>
+
+                        <input
+                            type="number"
+                            class="form-control"
+                            name="amount"
+                            placeholder="0.00">
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label>Payment Method</label>
+
+                        <select
+                            class="form-select"
+                            name="payment">
+
+                            <option>Cash</option>
+                            <option>UPI</option>
+                            <option>Credit Card</option>
+                            <option>Debit Card</option>
+                            <option>Net Banking</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="mb-3">
+
+                        <label>Notes</label>
+
+                        <textarea
+                            class="form-control"
+                            rows="3"
+                            name="notes"></textarea>
+
+                    </div>
+
+                    <button
+                        class="btn btn-success">
+
+                        Save Expense
+
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/manual_entry.js') }}"></script>
+{% endblock %}

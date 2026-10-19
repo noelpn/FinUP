@@ -1,0 +1,214 @@
+{% extends "layout.html" %}
+
+{% block title %}Thomas Cook AI - Finance Chat{% endblock %}
+
+{% block page_title %}
+🤖 Thomas Cook AI - Financial Assistant
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <div class="row">
+
+        <!-- Chat Section -->
+        <div class="col-lg-8">
+
+            <div class="card p-4" style="height: 600px; display: flex; flex-direction: column;">
+
+                <h5>Chat with Thomas Cook AI</h5>
+
+                <small class="text-muted">Your personal AI financial advisor</small>
+
+                <hr>
+
+                <!-- Chat Messages -->
+                <div id="chatMessages" style="flex: 1; overflow-y: auto; margin-bottom: 15px; padding: 10px; background: #f8f9fa; border-radius: 5px;">
+                    <div class="message bot-message mb-3">
+                        <strong>Thomas Cook AI:</strong>
+                        <p>Hello! I'm Thomas Cook AI, your personal financial advisor. Ask me anything about budgeting, expense management, or personal finance. How can I help you today?</p>
+                    </div>
+                </div>
+
+                <!-- Input Section -->
+                <div style="display: flex; gap: 10px;">
+                    <input
+                        type="text"
+                        id="messageInput"
+                        class="form-control"
+                        placeholder="Ask about your finances, budgeting, or spending..."
+                        autofocus>
+                    <button id="sendBtn" class="btn btn-primary">Send</button>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+
+            <!-- AI Info -->
+            <div class="card p-4 mb-4">
+
+                <h5>About Thomas Cook AI</h5>
+
+                <p class="small">
+                    <strong>Name:</strong> Thomas Cook AI<br>
+                    <strong>Specialty:</strong> Personal Finance<br>
+                    <strong>Model:</strong> GPT-3.5-Turbo
+                </p>
+
+                <hr>
+
+                <h6>Quick Tips</h6>
+
+                <ul class="small">
+                    <li>Ask about spending patterns</li>
+                    <li>Get budgeting advice</li>
+                    <li>Learn expense reduction tips</li>
+                    <li>Get financial planning help</li>
+                    <li>Understand savings strategies</li>
+                </ul>
+
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="card p-4">
+
+                <h5>Quick Actions</h5>
+
+                <button class="btn btn-outline-primary w-100 mb-2" onclick="askAboutBudget()">
+                    💰 Budget Analysis
+                </button>
+
+                <button class="btn btn-outline-success w-100 mb-2" onclick="askAboutSpending()">
+                    📊 Spending Analysis
+                </button>
+
+                <button class="btn btn-outline-warning w-100 mb-2" onclick="askAboutSavings()">
+                    💡 Savings Tips
+                </button>
+
+                <button class="btn btn-outline-info w-100" onclick="askForSuggestions()">
+                    🎯 Get Suggestions
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+// ==========================================
+// Thomas Cook AI Chat
+// ==========================================
+
+const chatMessages = document.getElementById('chatMessages');
+const messageInput = document.getElementById('messageInput');
+const sendBtn = document.getElementById('sendBtn');
+
+sendBtn.addEventListener('click', sendMessage);
+messageInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') sendMessage();
+});
+
+async function sendMessage() {
+    const message = messageInput.value.trim();
+    if (!message) return;
+
+    // Add user message to chat
+    addMessageToChat('You', message, 'user-message');
+    messageInput.value = '';
+
+    try {
+        const response = await fetch('/api/thomas-ai', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            addMessageToChat('Thomas Cook AI', data.response, 'bot-message');
+        } else {
+            addMessageToChat('Thomas Cook AI', 'Sorry, I encountered an error. Please try again.', 'bot-message error');
+        }
+    } catch (error) {
+        addMessageToChat('Thomas Cook AI', 'Unable to reach the AI service. Please try again.', 'bot-message error');
+        console.error(error);
+    }
+}
+
+function addMessageToChat(sender, message, className) {
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message ${className} mb-3`;
+    messageDiv.innerHTML = `<strong>${sender}:</strong><p>${message}</p>`;
+    chatMessages.appendChild(messageDiv);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+function askAboutBudget() {
+    messageInput.value = "Analyze my budget usage and provide recommendations.";
+    sendMessage();
+}
+
+function askAboutSpending() {
+    messageInput.value = "What are my spending patterns? Which categories need attention?";
+    sendMessage();
+}
+
+function askAboutSavings() {
+    messageInput.value = "What are the best ways to reduce expenses and increase savings?";
+    sendMessage();
+}
+
+async function askForSuggestions() {
+    try {
+        const response = await fetch('/api/thomas-ai/suggestions');
+        const data = await response.json();
+        if (data.success) {
+            addMessageToChat('Thomas Cook AI', data.suggestions, 'bot-message');
+        }
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+</script>
+
+<style>
+.message {
+    padding: 10px;
+    border-radius: 5px;
+    word-wrap: break-word;
+}
+
+.user-message {
+    background: #d1ecf1;
+    border-left: 4px solid #0c5460;
+}
+
+.bot-message {
+    background: #d4edda;
+    border-left: 4px solid #155724;
+}
+
+.bot-message.error {
+    background: #f8d7da;
+    border-left: 4px solid #721c24;
+}
+
+.message p {
+    margin: 0;
+    font-size: 0.95rem;
+}
+</style>
+
+{% endblock %}

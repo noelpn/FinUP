@@ -1,0 +1,170 @@
+{% extends "layout.html" %}
+
+{% block title %}Expense Categories{% endblock %}
+
+{% block page_title %}
+Expense Categories
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <!-- Summary Cards -->
+
+    <div class="row g-4">
+
+        <div class="col-md-3">
+
+            <div class="card p-3">
+
+                <h6>Total Categories</h6>
+
+                <h2>{{ total_categories }}</h2>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="card p-3">
+
+                <h6>Highest Category</h6>
+
+                <h2>{{ highest_category }}</h2>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="card p-3">
+
+                <h6>Highest Expense</h6>
+
+                <h2>₹ {{ highest_amount }}</h2>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="card p-3">
+
+                <h6>Monthly Total</h6>
+
+                <h2>₹ {{ monthly_total }}</h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <br>
+
+    <!-- Category Chart -->
+
+    <div class="card p-4 mb-4">
+
+        <h4>📊 Category Distribution</h4>
+
+        <canvas id="categoryChart"></canvas>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-lg-6">
+
+            <div class="card p-4">
+
+                <h4>Top Spending Categories</h4>
+
+                <table class="table table-hover">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Category</th>
+
+                            <th>Amount</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {% for category in categories %}
+
+                        <tr>
+
+                            <td>{{ category.name }}</td>
+
+                            <td>₹ {{ category.amount }}</td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-6">
+
+            <div class="card p-4">
+
+                <h4>Expense Percentage</h4>
+
+                <canvas id="percentageChart"></canvas>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <br>
+
+    <!-- AI Suggestions -->
+
+    <div class="card p-4">
+
+        <h4>🤖 AI Category Suggestions</h4>
+
+        <ul class="list-group">
+
+            {% for suggestion in category_suggestions %}
+
+            <li class="list-group-item">
+
+                {{ suggestion }}
+
+            </li>
+
+            {% endfor %}
+
+        </ul>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script src="{{ url_for('static',
+filename='js/charts.js') }}"></script>
+
+{% endblock %}
