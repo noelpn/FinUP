@@ -1,0 +1,201 @@
+/* =====================================
+   Dashboard Styling
+===================================== */
+
+.summary-card{
+
+    border:none;
+
+    border-radius:18px;
+
+    color:white;
+
+    transition:0.3s;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.15);
+
+}
+
+.summary-card:hover{
+
+    transform:translateY(-6px);
+
+}
+
+/* Card Colors */
+
+.total-expense{
+
+    background:linear-gradient(135deg,#4F46E5,#2563EB);
+
+}
+
+.budget{
+
+    background:linear-gradient(135deg,#059669,#10B981);
+
+}
+
+.prediction{
+
+    background:linear-gradient(135deg,#EA580C,#F97316);
+
+}
+
+.category{
+
+    background:linear-gradient(135deg,#7C3AED,#9333EA);
+
+}
+
+.summary-card h6{
+
+    opacity:.9;
+
+    font-size:15px;
+
+    margin-bottom:10px;
+
+}
+
+.summary-card h2{
+
+    font-size:30px;
+
+    font-weight:700;
+
+}
+
+.summary-card small{
+
+    opacity:.85;
+
+}
+
+/* =====================================
+   Quick Actions
+===================================== */
+
+.quick-actions{
+
+    border-radius:18px;
+
+    border:none;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+}
+
+.quick-actions .btn{
+
+    padding:15px;
+
+    font-weight:600;
+
+    border-radius:12px;
+
+    transition:.3s;
+
+}
+
+.quick-actions .btn:hover{
+
+    transform:scale(1.04);
+
+}
+
+/* =====================================
+   Charts
+===================================== */
+
+.chart-card{
+
+    border:none;
+
+    border-radius:18px;
+
+    padding:20px;
+
+    background:white;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+}
+
+.chart-card canvas{
+
+    width:100% !important;
+
+    height:320px !important;
+
+}
+
+/* =====================================
+   AI Suggestions
+===================================== */
+
+.suggestion-card{
+
+    border:none;
+
+    border-radius:18px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+}
+
+.suggestion-card .list-group-item{
+
+    border:none;
+
+    padding:14px;
+
+}
+
+/* =====================================
+   Expense Table
+===================================== */
+
+.table-card{
+
+    border:none;
+
+    border-radius:18px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+}
+
+.table thead{
+
+    background:#2563EB;
+
+    color:white;
+
+}
+
+.table tbody tr:hover{
+
+    background:#F5F7FA;
+
+}
+
+/* =====================================
+   Responsive
+===================================== */
+
+@media(max-width:992px){
+
+.summary-card{
+
+    margin-bottom:20px;
+
+}
+
+.chart-card{
+
+    margin-bottom:20px;
+
+}
+
+}
